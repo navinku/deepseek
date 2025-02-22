@@ -1,0 +1,11 @@
+encryptionsalt: v1:symn5Ulr5Q8=:v1:s4UOlegf7+hlqxQX:uVELfu/Ww2nQN8DE/hwkq+CsdhS2dQ==
+config:
+  deepseek:vpcid: vpc-03cf76ab3ddfb512c
+  deepseek:subnetid: subnet-0f7cfbcf2168d9206
+  deepseek:keypair: sbxtst
+  deepseek:amiid: ami-04b70fa74e45c3917
+  deepseek:instanceType: t3a.xlarge
+  deepseek:rtvolumeSize: 100
+  deepseek:dtvolumeSize: "50"
+  deepseek:serviceName: deepSeek
+  aws:region: us-east-1

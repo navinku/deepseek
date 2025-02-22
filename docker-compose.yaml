@@ -1,0 +1,37 @@
+version: '3.8'
+
+services:
+  ollama:
+    image: ollama/ollama
+    container_name: ollama
+    ports:
+      - "11434:11434"
+    environment:
+      - OLLAMA_HOST=0.0.0.0
+    volumes:
+      - ollama:/root/.ollama
+    networks:
+      - ollama-network
+
+  open-webui:
+    image: ghcr.io/open-webui/open-webui:main
+    container_name: open-webui
+    ports:
+      - "3000:8080"
+    environment:
+      - OLLAMA_API_BASE_URL=http://ollama:11434
+    volumes:
+      - open-webui:/app/backend/data
+    depends_on:
+      - ollama
+    restart: always
+    networks:
+      - ollama-network
+
+volumes:
+  ollama:
+  open-webui:
+
+networks:
+  ollama-network:
+    driver: bridge
