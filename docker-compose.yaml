@@ -8,25 +8,49 @@ services:
       - "11434:11434"
     environment:
       - OLLAMA_HOST=0.0.0.0
+      - OLLAMA_LLM_LIBRARY=cpu
     volumes:
       - ollama:/root/.ollama
     networks:
       - ollama-network
+    entrypoint: >
+      sh -c "apt-get update && apt-get install -y wget && ollama serve"
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost:11434 || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
+    restart: unless-stopped
 
   open-webui:
     image: ghcr.io/open-webui/open-webui:main
     container_name: open-webui
     ports:
-      - "3000:8080"
+      - "80:8080"
     environment:
-      - OLLAMA_API_BASE_URL=http://ollama:11434
+      - OLLAMA_BASE_URL=http://ollama:11434
+      - USE_OLLAMA_DOCKER=false
     volumes:
       - open-webui:/app/backend/data
     depends_on:
-      - ollama
+      ollama:
+        condition: service_healthy
     restart: always
     networks:
       - ollama-network
+
+  deepseek-pull:
+    image: ollama/ollama
+    container_name: deepseek-pull
+    depends_on:
+      open-webui:
+        condition: service_healthy
+    entrypoint: >
+      sh -c "ollama pull deepseek-r1:7b"
+    networks:
+      - ollama-network
+    restart: on-failure
 
 volumes:
   ollama:
