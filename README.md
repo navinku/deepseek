@@ -1,11 +1,3 @@
-# deepseek
-deepseek deployment
-
-Reference docs --
-https://medium.com/@oleksii.bebych/run-deepseek-with-ollama-llm-and-open-webui-on-amazon-ec2-fabb2121f1fb
-
-https://github.com/open-webui/open-webui
-
 # Ollama with Open WebUI and Deepseek Model Deployment
 
 This repository contains the necessary scripts and configurations to deploy Ollama, Open WebUI, and the Deepseek model using Docker and Docker Compose. The deployment is automated using Pulumi for infrastructure as code (IaC) on AWS.
@@ -124,6 +116,11 @@ The EC2 instance is configured with a user data script that:
 ## License
 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+
+## Reference docs --
+https://medium.com/@oleksii.bebych/run-deepseek-with-ollama-llm-and-open-webui-on-amazon-ec2-fabb2121f1fb
+
+https://github.com/open-webui/open-webui
 
 ## Acknowledgments
 
